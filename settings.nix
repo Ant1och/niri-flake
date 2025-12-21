@@ -1954,6 +1954,14 @@
           {
             layout = ordered-section [
               {
+                blur = section {
+                  enable = nullable types.bool;
+                  radius = nullable float-or-int;
+                  passes = nullable types.int;
+                  noise = nullable float-or-int;
+                };
+              }
+              {
                 focus-ring = borderish {
                   enable-by-default = true;
                   name = "focus ring";
@@ -2582,6 +2590,14 @@
                         If none of these rules match a window, then this window rule will not be rejected. It will apply to that window if and only if it matches one of the rules in ${link-opt (subopts options.window-rules).matches}
                       '';
                     };
+                  }                   
+                  {
+                    blur = nullable (record {
+                      enable = nullable types.bool;
+                      radius = nullable float-or-int;
+                      passes = nullable types.int;
+                      noise = nullable float-or-int;
+                    });
                   }
                   {
                     default-column-width = nullable default-width // {
@@ -3635,6 +3651,14 @@
         ])
 
         (plain "layout" [
+          (plain' "blur" [
+            (toggle' "off" cfg.layout.blur [
+              (flag' "on" cfg.layout.blur.enable)
+              (nullable leaf "radius" cfg.layout.blur.radius or null)
+              (nullable leaf "passes" cfg.layout.blur.passes or null)
+              (nullable leaf "noise" cfg.layout.blur.noise or null)
+            ])
+          ])
           (leaf "gaps" cfg.layout.gaps)
           (plain "struts" [
             (leaf "left" cfg.layout.struts.left)
@@ -3711,6 +3735,13 @@
           (plain "window-rule" [
             (map (leaf "match") (map opt-props cfg.matches))
             (map (leaf "exclude") (map opt-props cfg.excludes))
+            (lib.optionals (cfg.blur != null) (nullable plain "blur" [
+                (flag' "on" (cfg.blur.enable == true))
+                (flag' "off" (cfg.blur.enable == false))
+                (nullable leaf "radius" cfg.blur.radius)
+                (nullable leaf "passes" cfg.blur.passes)
+                (nullable leaf "noise" cfg.blur.noise)
+            ]))
             (nullable preset-sizes "default-column-width" cfg.default-column-width)
             (nullable preset-sizes "default-window-height" cfg.default-window-height)
             (nullable leaf "default-column-display" cfg.default-column-display)
