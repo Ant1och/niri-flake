@@ -2551,6 +2551,11 @@
                         When non-null, matches based on whether the window is being targeted by a window cast.
                       '';
                     };
+                    is-fullscreen = nullable types.bool // {
+                      description = ''
+                        When non-null, matches based on whether the window is in (true) fullscreen mode.
+                      '';
+                    };
                   }
                   {
                     at-startup = nullable types.bool // {
