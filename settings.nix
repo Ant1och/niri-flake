@@ -2695,6 +2695,7 @@
                         If the final value of this field is null, then niri will decide whether to open the window as floating or as tiled.
                       '';
                     };
+                    open-maximized-to-edges = nullable types.bool;
 
                     open-focused = nullable types.bool // {
                       description = ''
@@ -3753,6 +3754,7 @@
             (nullable leaf "open-on-output" cfg.open-on-output)
             (nullable leaf "open-on-workspace" cfg.open-on-workspace)
             (nullable leaf "open-maximized" cfg.open-maximized)
+            (nullable leaf "open-maximized-to-edges" cfg.open-maximized-to-edges)
             (nullable leaf "open-fullscreen" cfg.open-fullscreen)
             (nullable leaf "open-floating" cfg.open-floating)
             (nullable leaf "open-focused" cfg.open-focused)
