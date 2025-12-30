@@ -1918,6 +1918,12 @@
           }
 
           {
+            recent-windows = section {
+              enable = optional types.bool true;
+            };
+          }
+
+          {
             cursor = section' {
               imports = [
                 (lib.mkRenamedOptionModule [ "hide-on-key-press" ] [ "hide-when-typing" ])
@@ -3692,6 +3698,10 @@
           ))
           (flag' "always-center-single-column" cfg.layout.always-center-single-column)
           (flag' "empty-workspace-above-first" cfg.layout.empty-workspace-above-first)
+        ])
+      
+        (plain' "recent-windows" [
+          (toggle' "off" cfg.recent-windows [ ])
         ])
 
         (plain "cursor" [
